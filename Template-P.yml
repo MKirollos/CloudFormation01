@@ -35,17 +35,17 @@ Parameters:
     Type: String
     Default: 10.52.121.0/25
 
-  PrivateSubnet4CIDR:
-    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
-    Type: String
-    Default: 10.52.121.128/27
+#  PrivateSubnet4CIDR:
+#    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
+#    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
+#    Type: String
+#    Default: 10.52.121.128/27
 
-  PrivateSubnet5CIDR:
-    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
-    Type: String
-    Default: 10.52.121.160/27
+#  PrivateSubnet5CIDR:
+#    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
+#    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
+#    Type: String
+#    Default: 10.52.121.160/27
 
   ConnectSubnet1CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
@@ -187,27 +187,27 @@ Resources:
         - Key: Name
           Value: prd-cntdel-az3-privatesubnet-01
 
-  PrivateSubnet4:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs  '' ]
-      CidrBlock: !Ref PrivateSubnet4CIDR
-      MapPublicIpOnLaunch: false
-      Tags:
-        - Key: Name
-          Value: prd-cntdel-az1-privatesubnet-02
+#  PrivateSubnet4:
+#    Type: AWS::EC2::Subnet
+#    Properties:
+#      VpcId: !Ref VPC
+#      AvailabilityZone: !Select [ 0, !GetAZs  '' ]
+#      CidrBlock: !Ref PrivateSubnet4CIDR
+#      MapPublicIpOnLaunch: false
+#      Tags:
+#        - Key: Name
+#          Value: prd-cntdel-az1-privatesubnet-02
 
-  PrivateSubnet5:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 1, !GetAZs  '' ]
-      CidrBlock: !Ref PrivateSubnet5CIDR
-      MapPublicIpOnLaunch: false
-      Tags:
-        - Key: Name
-          Value: prd-cntdel-az2-privatesubnet-02
+#  PrivateSubnet5:
+#    Type: AWS::EC2::Subnet
+#    Properties:
+#      VpcId: !Ref VPC
+#      AvailabilityZone: !Select [ 1, !GetAZs  '' ]
+#      CidrBlock: !Ref PrivateSubnet5CIDR
+#      MapPublicIpOnLaunch: false
+#      Tags:
+#        - Key: Name
+#          Value: prd-cntdel-az2-privatesubnet-02
 
   PrivateRouteTableA:
     Type: AWS::EC2::RouteTable
@@ -239,54 +239,54 @@ Resources:
       RouteTableId: !Ref PrivateRouteTableA
       SubnetId: !Ref PrivateSubnet3
 
-  PrivateSubnet4RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      RouteTableId: !Ref PrivateRouteTableA
-      SubnetId: !Ref PrivateSubnet4
+#  PrivateSubnet4RouteTableAssociation:
+#    Type: AWS::EC2::SubnetRouteTableAssociation
+#    Properties:
+#      RouteTableId: !Ref PrivateRouteTableA
+#      SubnetId: !Ref PrivateSubnet4
+#
+#  PrivateSubnet5RouteTableAssociation:
+#    Type: AWS::EC2::SubnetRouteTableAssociation
+#    Properties:
+#      RouteTableId: !Ref PrivateRouteTableA
+#      SubnetId: !Ref PrivateSubnet5
 
-  PrivateSubnet5RouteTableAssociation:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      RouteTableId: !Ref PrivateRouteTableA
-      SubnetId: !Ref PrivateSubnet5
-
-  Vgw:
-    Type: AWS::EC2::VPNGateway
-    Properties:
-      AmazonSideAsn: !Ref VgwASN
-      Tags:
-        - Key: Name
-          Value: prd-cntdel-euw2-vgw-02
-      Type: ipsec.1
-
-  VgwAttachment:
-    Type: AWS::EC2::VPCGatewayAttachment
-    Properties:
-      VpcId: !Ref VPC
-      VpnGatewayId: !Ref Vgw
-
-  VgwRoutePropagation:
-    Type: AWS::EC2::VPNGatewayRoutePropagation
-    DependsOn: VgwAttachment
-    Properties:
-      RouteTableIds:
-        - !Ref PrivateRouteTableA
-      VpnGatewayId: !Ref Vgw
-
-  S3VpcEndpoint:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      PolicyDocument:
-        Statement:
-        - Action: "*"
-          Effect: Allow
-          Resource: "*"
-          Principal: "*"
-      RouteTableIds:
-      - !Ref PrivateRouteTableA
-      ServiceName: !Sub com.amazonaws.${AWS::Region}.s3
-      VpcId: !Ref VPC
+#  Vgw:
+#    Type: AWS::EC2::VPNGateway
+#    Properties:
+#      AmazonSideAsn: !Ref VgwASN
+#      Tags:
+#        - Key: Name
+#          Value: prd-cntdel-euw2-vgw-02
+#      Type: ipsec.1
+#
+#  VgwAttachment:
+#    Type: AWS::EC2::VPCGatewayAttachment
+#    Properties:
+#      VpcId: !Ref VPC
+#      VpnGatewayId: !Ref Vgw
+#
+#  VgwRoutePropagation:
+#    Type: AWS::EC2::VPNGatewayRoutePropagation
+#    DependsOn: VgwAttachment
+#    Properties:
+#      RouteTableIds:
+#        - !Ref PrivateRouteTableA
+#      VpnGatewayId: !Ref Vgw
+#
+#  S3VpcEndpoint:
+#    Type: AWS::EC2::VPCEndpoint
+#    Properties:
+#      PolicyDocument:
+#        Statement:
+#        - Action: "*"
+#          Effect: Allow
+#          Resource: "*"
+#          Principal: "*"
+#      RouteTableIds:
+#      - !Ref PrivateRouteTableA
+#      ServiceName: !Sub com.amazonaws.${AWS::Region}.s3
+#      VpcId: !Ref VPC
 
 ##########################################
 
