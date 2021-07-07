@@ -63,7 +63,7 @@ Parameters:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
     Type: String
-    Default: 10.52.61.224/28
+    Default: 10.52.61.240/28
 
 #  VgwASN:
 #    Description: BGP ASN for VGW
