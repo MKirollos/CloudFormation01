@@ -32,39 +32,38 @@ Parameters:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
     Type: String
-    Default: 10.52.61.128/64
+    Default: 10.52.61.128/26
 
 #  PrivateSubnet4CIDR:
 #    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
 #    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
 #    Type: String
-#    Default: 10.52.59.128/27
+#    Default: 10.52.57.128/27
 #
 #  PrivateSubnet5CIDR:
 #    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
 #    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
 #    Type: String
-#    Default: 10.52.59.160/27
-
-
-  ConnectSubnet1CIDR:
-    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
-    Type: String
-    Default: 10.52.61.208/28
-
-  ConnectSubnet2CIDR:
-    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    Description: Please enter the IP range (CIDR notation) for the private subnet in the second Availability Zone
-    Type: String
-    Default: 10.52.61.224/28
-
-  ConnectSubnet3CIDR:
-    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
-    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
-    Type: String
-    Default: 10.52.61.240/28
-
+#    Default: 10.52.57.160/27
+#
+#  ConnectSubnet1CIDR:
+#    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
+#    Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
+#    Type: String
+#    Default: 10.52.57.192/28
+#
+#  ConnectSubnet2CIDR:
+#    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
+#    Description: Please enter the IP range (CIDR notation) for the private subnet in the second Availability Zone
+#    Type: String
+#    Default: 10.52.57.208/28
+#
+#  ConnectSubnet3CIDR:
+#    AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
+#    Description: Please enter the IP range (CIDR notation) for the private subnet in the third Availability Zone
+#    Type: String
+#    Default: 10.52.57.224/28
+#
 #  VgwASN:
 #    Description: BGP ASN for VGW
 #    Type: String
@@ -94,7 +93,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az1-connectsubnet-01
+          Value: nprd-cntdel-az1-connectsubnet-01
         - Key: 'tgw-attach'
           Value: 'True'
 
@@ -107,7 +106,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az2-connectsubnet-01
+          Value: nprd-cntdel-az2-connectsubnet-01
         - Key: 'tgw-attach'
           Value: 'True'
 
@@ -120,7 +119,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az3-connectsubnet-01
+          Value: nprd-cntdel-az3-connectsubnet-01
         - Key: 'tgw-attach'
           Value: 'True'
 
@@ -130,15 +129,13 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: dev-cntdel-connectrtb-01
+          Value: nprd-cntdel-connectrtb-01
 
   ConnectSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref ConnectRouteTableA
       SubnetId: !Ref ConnectSubnet1
-
-
 
   ConnectSubnet2RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -163,7 +160,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az1-privatesubnet-01
+          Value: nprd-cntdel-az1-privatesubnet-01
 
   PrivateSubnet2:
     Type: AWS::EC2::Subnet
@@ -174,7 +171,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az2-privatesubnet-01
+          Value: nprd-cntdel-az2-privatesubnet-01
 
   PrivateSubnet3:
     Type: AWS::EC2::Subnet
@@ -185,7 +182,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: dev-cntdel-az3-privatesubnet-01
+          Value: nprd-cntdel-az3-privatesubnet-01
 
 #  PrivateSubnet4:
 #    Type: AWS::EC2::Subnet
@@ -196,8 +193,8 @@ Resources:
 #      MapPublicIpOnLaunch: false
 #      Tags:
 #        - Key: Name
-#          Value: dev-cntdel-az1-privatesubnet-02
-
+#          Value: nprd-cntdel-az1-privatesubnet-02
+#
 #  PrivateSubnet5:
 #    Type: AWS::EC2::Subnet
 #    Properties:
@@ -207,15 +204,15 @@ Resources:
 #      MapPublicIpOnLaunch: false
 #      Tags:
 #        - Key: Name
-#          Value: dev-cntdel-az2-privatesubnet-02
-#
+#          Value: nprd-cntdel-az2-privatesubnet-02
+
   PrivateRouteTableA:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: dev-cntdel-privatertb-01
+          Value: nprd-cntdel-privatertb-01
         - Key: 'tgw-attach'
           Value: 'True'
 
@@ -249,22 +246,22 @@ Resources:
 #    Properties:
 #      RouteTableId: !Ref PrivateRouteTableA
 #      SubnetId: !Ref PrivateSubnet5
-
+#
 #  Vgw:
 #    Type: AWS::EC2::VPNGateway
 #    Properties:
 #      AmazonSideAsn: !Ref VgwASN
 #      Tags:
 #        - Key: Name
-#          Value: dev-cntdel-euw2-vgw-02
+#          Value: nprd-cntdel-euw2-vgw-02
 #      Type: ipsec.1
-
+#
 #  VgwAttachment:
 #    Type: AWS::EC2::VPCGatewayAttachment
 #    Properties:
 #      VpcId: !Ref VPC
 #      VpnGatewayId: !Ref Vgw
-
+#
 #  VgwRoutePropagation:
 #    Type: AWS::EC2::VPNGatewayRoutePropagation
 #    DependsOn: VgwAttachment
@@ -272,7 +269,7 @@ Resources:
 #      RouteTableIds:
 #        - !Ref PrivateRouteTableA
 #      VpnGatewayId: !Ref Vgw
-
+#
   S3VpcEndpoint:
     Type: AWS::EC2::VPCEndpoint
     Properties:
