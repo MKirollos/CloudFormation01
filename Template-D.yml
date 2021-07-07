@@ -65,10 +65,10 @@ Parameters:
     Type: String
     Default: 10.52.61.224/28
 
-  VgwASN:
-    Description: BGP ASN for VGW
-    Type: String
-    Default: 65061
+#  VgwASN:
+#    Description: BGP ASN for VGW
+#    Type: String
+#    Default: 65061
 
 ###################################################
 
@@ -187,16 +187,16 @@ Resources:
         - Key: Name
           Value: dev-cntdel-az3-privatesubnet-01
 
-  PrivateSubnet4:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId: !Ref VPC
-      AvailabilityZone: !Select [ 0, !GetAZs  '' ]
-      CidrBlock: !Ref PrivateSubnet4CIDR
-      MapPublicIpOnLaunch: false
-      Tags:
-        - Key: Name
-          Value: dev-cntdel-az1-privatesubnet-02
+#  PrivateSubnet4:
+#    Type: AWS::EC2::Subnet
+#    Properties:
+#      VpcId: !Ref VPC
+#      AvailabilityZone: !Select [ 0, !GetAZs  '' ]
+#      CidrBlock: !Ref PrivateSubnet4CIDR
+#      MapPublicIpOnLaunch: false
+#      Tags:
+#        - Key: Name
+#          Value: dev-cntdel-az1-privatesubnet-02
 
 #  PrivateSubnet5:
 #    Type: AWS::EC2::Subnet
@@ -209,15 +209,15 @@ Resources:
 #        - Key: Name
 #          Value: dev-cntdel-az2-privatesubnet-02
 #
-#  PrivateRouteTableA:
-#    Type: AWS::EC2::RouteTable
-#    Properties:
-#      VpcId: !Ref VPC
-#      Tags:
-#        - Key: Name
-#          Value: dev-cntdel-privatertb-01
-#        - Key: 'tgw-attach'
-#          Value: 'True'
+  PrivateRouteTableA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: dev-cntdel-privatertb-01
+        - Key: 'tgw-attach'
+          Value: 'True'
 
   PrivateSubnet1RouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -273,19 +273,19 @@ Resources:
 #        - !Ref PrivateRouteTableA
 #      VpnGatewayId: !Ref Vgw
 
-#  S3VpcEndpoint:
-#    Type: AWS::EC2::VPCEndpoint
-#    Properties:
-#      PolicyDocument:
-#        Statement:
-#        - Action: "*"
-#          Effect: Allow
-#          Resource: "*"
-#          Principal: "*"
-#      RouteTableIds:
-#      - !Ref PrivateRouteTableA
-#      ServiceName: !Sub com.amazonaws.${AWS::Region}.s3
-#      VpcId: !Ref VPC
+  S3VpcEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      PolicyDocument:
+        Statement:
+        - Action: "*"
+          Effect: Allow
+          Resource: "*"
+          Principal: "*"
+      RouteTableIds:
+      - !Ref PrivateRouteTableA
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.s3
+      VpcId: !Ref VPC
 
 ##########################################
 
@@ -318,13 +318,13 @@ Outputs:
     Description: A reference to the private subnet in the 3rd Availability Zone
     Value: !Ref PrivateSubnet3
 
-  PrivateSubnet4:
-    Description: A reference to the 2nd private subnet in the 1st Availability Zone
-    Value: !Ref PrivateSubnet4
+#  PrivateSubnet4:
+#    Description: A reference to the 2nd private subnet in the 1st Availability Zone
+#    Value: !Ref PrivateSubnet4
 
-  PrivateSubnet5:
-    Description: A reference to the 2nd private subnet in the 2nd Availability Zone
-    Value: !Ref PrivateSubnet5
+#  PrivateSubnet5:
+#    Description: A reference to the 2nd private subnet in the 2nd Availability Zone
+#    Value: !Ref PrivateSubnet5
 
   PrivateRouteTable:
     Description: A reference to the private subnets route table
@@ -334,9 +334,9 @@ Outputs:
     Description: A reference to the connect subnets route table
     Value: !Ref ConnectRouteTableA
 
-  Vgw:
-    Description: Created Vgw
-    Value: !Ref Vgw
+#  Vgw:
+#    Description: Created Vgw
+#    Value: !Ref Vgw
 
   S3GWVpcEndpoint:
     Description: Created S3 gateway endpoint
