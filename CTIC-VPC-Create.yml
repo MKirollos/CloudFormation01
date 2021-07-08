@@ -81,7 +81,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: !Sub ${EnvironmentName},
+          Value: !Sub ${EnvironmentName}
         - Key: 'tgw-attach'
           Value: 'tgw-attach'
 
